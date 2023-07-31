@@ -33,7 +33,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         DefaultSecurityFilterChain build = http.csrf().disable().authorizeHttpRequests()
-                .requestMatchers("/").permitAll()
+                .requestMatchers("/","/register", "/verifyRegistration", "/resendVerifyToken",
+                "/resetPassword", "/savePassword", "/changePassword").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/doctor").authenticated()//hasRole("DOCTOR")
                 //for jwt token
