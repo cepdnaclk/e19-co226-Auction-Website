@@ -1,13 +1,19 @@
 package com.bidCircle.backend.service;
 
+import com.bidCircle.backend.entity.PasswordResetToken;
 import com.bidCircle.backend.entity.UserInfo;
 import com.bidCircle.backend.entity.VerificationToken;
 import com.bidCircle.backend.model.UserModel;
+import com.bidCircle.backend.repository.PasswordResetTokenRepository;
 import com.bidCircle.backend.repository.UserInfoRepository;
 import com.bidCircle.backend.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -53,7 +59,7 @@ public class UserServiceImpl implements UserService {
             return "invalid";
         }
 
-        User user = verificationToken.getUser();
+        UserInfo user = verificationToken.getUser();
         Calendar cal = Calendar.getInstance();
 
         if ((verificationToken.getExpirationTime().getTime()
@@ -82,7 +88,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createPasswordResetTokenForUser(User user, String token) {
+    public void createPasswordResetTokenForUser(UserInfo user, String token) {
         PasswordResetToken passwordResetToken
                 = new PasswordResetToken(user,token);
         passwordResetTokenRepository.save(passwordResetToken);
@@ -97,7 +103,7 @@ public class UserServiceImpl implements UserService {
             return "invalid";
         }
 
-        User user = passwordResetToken.getUser();
+        UserInfo user = passwordResetToken.getUser();
         Calendar cal = Calendar.getInstance();
 
         if ((passwordResetToken.getExpirationTime().getTime()
@@ -110,18 +116,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getUserByPasswordResetToken(String token) {
+    public Optional<UserInfo> getUserByPasswordResetToken(String token) {
         return Optional.ofNullable(passwordResetTokenRepository.findByToken(token).getUser());
     }
 
     @Override
-    public void changePassword(User user, String newPassword) {
+    public void changePassword(UserInfo user, String newPassword) {
         user.setPassword(passwordEncoder.encode(newPassword));
         userRepository.save(user);
     }
 
     @Override
-    public boolean checkIfValidOldPassword(User user, String oldPassword) {
+    public boolean checkIfValidOldPassword(UserInfo user, String oldPassword) {
         return passwordEncoder.matches(oldPassword, user.getPassword());
     }
 }
