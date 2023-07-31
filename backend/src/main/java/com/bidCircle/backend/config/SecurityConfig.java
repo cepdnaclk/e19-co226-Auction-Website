@@ -34,9 +34,9 @@ public class SecurityConfig {
 
         DefaultSecurityFilterChain build = http.csrf().disable().authorizeHttpRequests()
                 .requestMatchers("/","/register", "/verifyRegistration", "/resendVerifyToken",
-                "/resetPassword", "/savePassword", "/changePassword").permitAll()
+                "/resetPassword", "/savePassword", "/changePassword", "/login", "/hello").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/doctor").authenticated()//hasRole("DOCTOR")
+                .authorizeHttpRequests().requestMatchers("/").authenticated()//hasRole("DOCTOR")
                 //for jwt token
                 .and()
                 .sessionManagement()
@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+
         // .and().formLogin().and().build();
         return build;
 
