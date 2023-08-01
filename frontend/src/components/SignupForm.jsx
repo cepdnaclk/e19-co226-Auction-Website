@@ -5,9 +5,10 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useState } from "react";
-import UseAuth from '../hooks/UseAuth';
+import UseAuth from './hooks/UseAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import LoginService from "../../services/LoginService";
+import Header from './themes/Header';
+
 
 
 const SignupForm = () => {
@@ -24,41 +25,13 @@ const SignupForm = () => {
 
   const handleFormSubmit = (values, {resetForm}) => {
     console.log(values);
-    LoginService.login(values)
-
-      .then((response) => {
-        const accessToken = response.accessToken;
-        const roles = response.roles;
-        const id = response.id;
-        setAuth({ "id": id, "roles": roles, "accessToken": accessToken });
-        console.log(response);
-        const currentURL = window.location.href;
-        const parts = from.split("/");
-        const login = parts[1];
-        console.log(login);
-        const convertedRole = roles.substring(5).toLowerCase();
-        const capitalRole = convertedRole.charAt(0).toUpperCase() + convertedRole.slice(1);
-        console.log(convertedRole);
-        if (convertedRole!=login){
-            setErrorMessage(capitalRole+" dont have acces to "+login+" content");
-          
-        }
-        else{
-
-        navigate(from, { replace: true });
-        }
-        
-      })
-      .catch((error) => {
-        console.log("Error detected:", error);
-        setErrorMessage("Invalid login");
-      })
+    
       resetForm();
   };
   
   return (
     <Box m="20px">
-      <Header title="" subtitle="Login" />
+      <Header title="" subtitle="Signup" />
       
         {errorMessage && (
         <Box mt="50px">
@@ -99,10 +72,23 @@ const SignupForm = () => {
                 label="User Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.username}
-                name="username"
+                value={values.userName}
+                name="userName"
                 error={touched.userName && errors.userName}
                 helperText={touched.userName && errors.userName}
+                sx={{ gridColumn: "span 4" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Email"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
+                name="email"
+                error={touched.email && errors.email}
+                helperText={touched.email && errors.email}
                 sx={{ gridColumn: "span 4" }}
               />
               <TextField
@@ -123,11 +109,11 @@ const SignupForm = () => {
               
               
               
-            </Box>
-            <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+            </Box><br/>
+            <Box display="grid">
+              <Button type="submit">
             
-                Login
+                SignUp
               </Button>
             </Box>
           </form>
@@ -137,15 +123,17 @@ const SignupForm = () => {
   );
 };
 const checkoutSchema = yup.object().shape({
-    username: yup.string().required("User Name is required"),
+    userName: yup.string().required("User Name is required"),
     password: yup.string().required("Password is required"),
+    email: yup.string().required("Email is required")
  
   
 });
 const initialValues = {
    
-    username: "",
+    userName: "",
     password: "",
+    email: ""
     
 };
 
