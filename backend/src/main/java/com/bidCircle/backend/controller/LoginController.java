@@ -27,14 +27,14 @@ public class LoginController {
 
     @PostMapping("/login")
     public TokenModel authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
         TokenModel tokenModel = new TokenModel();
         if (authentication.isAuthenticated()) {
-            String acessToken = jwtService.generateToken(authRequest.getUsername());
-            String roles = userInfoRepository.getRolesByUserName(authRequest.getUsername());
+            String acessToken = jwtService.generateToken(authRequest.getUserName());
+            String roles = userInfoRepository.getRolesByUserName(authRequest.getUserName());
             tokenModel.setAccessToken(acessToken);
             tokenModel.setRoles(roles);
-            tokenModel.setUserName(authRequest.getUsername());
+            tokenModel.setUserName(authRequest.getUserName());
             return tokenModel;
         } else {
             tokenModel.setAccessToken("");
