@@ -23,9 +23,11 @@ function App() {
     <ThemeProvider theme={lightTheme}>
       <CssBaseline/>
     <Routes>
-      <Route path ="/" element ={<Signup/>}/>
-      <Route path ="/signup" element ={<Signup/>}/>
-      
+      <Route path ="/" element ={<Signup props = "signup"/>}/>
+      <Route path ="/signup" element ={<Signup props = "signup"/>}/>
+      <Route path ="/login" element ={<Signup props = "login"/>}/>
+   
+
 
     </Routes>
     </ThemeProvider>

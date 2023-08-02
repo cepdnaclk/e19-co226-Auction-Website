@@ -7,8 +7,9 @@ import logo1 from '../assests/brand.png'
 import gold from '../assests/goldlogo.png'
 import SignupForm from './SignupForm'
 import Header from './themes/Header';
+import LogInForm from './LogInForm'
 
-const Signup = () => {
+const Signup = ({props}) => {
  
 
     return (
@@ -27,7 +28,7 @@ const Signup = () => {
                     {/* <Header title = "BIDCIRCLE" subtitle=""/> */}
                 </div>
                
-                 <SignupForm/>
+                 {props == "signup"? <SignupForm/> :<LogInForm/>}
                 
             </div>
             
