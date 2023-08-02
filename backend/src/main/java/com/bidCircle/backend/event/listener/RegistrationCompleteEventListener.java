@@ -2,6 +2,7 @@ package com.bidCircle.backend.event.listener;
 
 import com.bidCircle.backend.entity.UserInfo;
 import com.bidCircle.backend.event.RegistrationCompleteEvent;
+import com.bidCircle.backend.service.MailService;
 import com.bidCircle.backend.service.UserService;
 import com.bidCircle.backend.service.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,9 @@ public class RegistrationCompleteEventListener implements
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MailService mailService;
+
     @Override
     public void onApplicationEvent(RegistrationCompleteEvent event) {
         //Create the Verification Token for the User with Link
@@ -32,8 +36,6 @@ public class RegistrationCompleteEventListener implements
                         + "/verifyRegistration?token="
                         + token;
 
-        //sendVerificationEmail()
-        log.info("Click the link to verify your account: {}",
-                url);
+        mailService.sendVerifyEmail(user, url);
     }
 }

@@ -17,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @Slf4j
+@CrossOrigin(origins = "http://localhost:5173")
 public class RegistrationController {
 
     @Autowired
