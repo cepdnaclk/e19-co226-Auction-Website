@@ -8,6 +8,8 @@ import { useState } from "react";
 import UseAuth from './hooks/UseAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Header from './themes/Header';
+import { blue } from '@mui/material/colors';
+import CustomerService from '../services/CustomerService';
 
 
 
@@ -18,6 +20,7 @@ const SignupForm = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   
   const navigate = useNavigate();
+  const colorblue = blue[900];
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,13 +28,21 @@ const SignupForm = () => {
 
   const handleFormSubmit = (values, {resetForm}) => {
     console.log(values);
+    CustomerService.save(values)
+    .then((response)=>{
+        console.log(response);
+        setSuccessMessage("Verification link has been sent to your email")
+    }).catch((error)=>{
+        setErrorMessage("Invalid username or email address")
+        console.log(error);
+    })
     
       resetForm();
   };
   
   return (
-    <Box m="20px">
-      <Header title="" subtitle="Signup" />
+    <Box m="10px">
+      <Header title="" subtitle="SIGNUP" />
       
         {errorMessage && (
         <Box mt="50px">
@@ -110,8 +121,8 @@ const SignupForm = () => {
               
               
             </Box><br/>
-            <Box display="grid">
-              <Button type="submit">
+            <Box display="grid" color="primary" variant="contained">
+              <Button type="submit" color='secondary' variant='contained' >
             
                 SignUp
               </Button>
@@ -133,7 +144,8 @@ const initialValues = {
    
     userName: "",
     password: "",
-    email: ""
+    email: "",
+    roles: "ROLE_USER"
     
 };
 
