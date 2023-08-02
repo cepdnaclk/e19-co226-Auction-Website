@@ -5,6 +5,7 @@ import com.bidCircle.backend.entity.VerificationToken;
 import com.bidCircle.backend.event.RegistrationCompleteEvent;
 import com.bidCircle.backend.model.PasswordModel;
 import com.bidCircle.backend.model.UserModel;
+import com.bidCircle.backend.service.MailService;
 import com.bidCircle.backend.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class RegistrationController {
     @Autowired
     private ApplicationEventPublisher publisher;
 
+    @Autowired
+    private MailService mailService;
+
     @PostMapping("/register")
     public String registerUser(@RequestBody UserModel userModel, final HttpServletRequest request) {
         UserInfo user = userService.registerUser(userModel);
@@ -41,8 +45,10 @@ public class RegistrationController {
         String result = userService.validateVerificationToken(token);
         if(result.equalsIgnoreCase("valid")) {
             return "User Verified Successfully";
+        } else if (result.equalsIgnoreCase("expired")) {
+            return "Verification link has expired";
         }
-        return "Bad User";
+        return "Invalid User";
     }
 
 
@@ -115,6 +121,8 @@ public class RegistrationController {
                         + verificationToken.getToken();
 
         //sendVerificationEmail()
+        mailService.sendVerifyEmail(user, url);
+
         log.info("Click the link to verify your account: {}",
                 url);
     }
