@@ -4,6 +4,7 @@ import Signup from './components/Signup'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { blue, cyan, indigo } from '@mui/material/colors';
+import SellerDashBoard from './components/seller/DashBoard';
 
 
 const lightTheme = createTheme({
@@ -26,6 +27,8 @@ function App() {
       <Route path ="/" element ={<Signup props = "signup"/>}/>
       <Route path ="/signup" element ={<Signup props = "signup"/>}/>
       <Route path ="/login" element ={<Signup props = "login"/>}/>
+
+      <Route path = "/seller/dashboard" element = {<SellerDashBoard/>}/>
    
 
 

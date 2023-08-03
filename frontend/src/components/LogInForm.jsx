@@ -9,7 +9,7 @@ import UseAuth from './hooks/UseAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Header from './themes/Header';
 import { blue } from '@mui/material/colors';
-import CustomerService from '../services/CustomerService';
+import LoginService from '../services/LoginServices';
 
 const LogInForm = () => {
     const { setAuth } = UseAuth();
@@ -26,10 +26,25 @@ const LogInForm = () => {
 
   const handleFormSubmit = (values, {resetForm}) => {
     console.log(values);
-    CustomerService.save(values)
+    LoginService.login(values)
     .then((response)=>{
-        console.log(response);
-        setSuccessMessage("Verification link has been sent to your email")
+        const accessToken = response.accessToken;
+        const roles = response.roles;
+        const name = response.userName;
+        setAuth({ "userName": name, "roles": roles, "accessToken": accessToken });
+        const currentURL = window.location.href;
+        const parts = from.split("/");
+        const login = parts[1];
+        console.log(login);
+        const convertedRole = roles.substring(5).toLowerCase();
+        const capitalRole = convertedRole.charAt(0).toUpperCase() + convertedRole.slice(1);
+        console.log(convertedRole);
+        if (convertedRole!=login){
+            setErrorMessage(capitalRole+" dont have acces to "+login+" content");
+          
+        }if(accessToken != ""){
+            navigate(from, { replace: true });
+        }
     }).catch((error)=>{
         setErrorMessage("Invalid username or email address")
         console.log(error);
