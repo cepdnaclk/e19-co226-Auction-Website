@@ -5,6 +5,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { blue, cyan, indigo } from '@mui/material/colors';
 import SellerDashBoard from './components/seller/DashBoard';
+import RequireAuth from './components/RequireAuth';
+import Layout from './components/Layout';
 
 
 const lightTheme = createTheme({
@@ -19,22 +21,34 @@ function App() {
   
 
   return (
-    <BrowserRouter>
-   
+ 
     <ThemeProvider theme={lightTheme}>
       <CssBaseline/>
     <Routes>
+     
+    <Route path="/" element={<Layout />}>
+    <Route path ="/" element ={<Signup props = "signup"/>}/>
+
       <Route path ="/" element ={<Signup props = "signup"/>}/>
       <Route path ="/signup" element ={<Signup props = "signup"/>}/>
       <Route path ="/login" element ={<Signup props = "login"/>}/>
 
+//potected route
+     <Route element={<RequireAuth allowedRoles="ROLE_SELLER" />}>
       <Route path = "/seller/dashboard" element = {<SellerDashBoard/>}/>
+      </Route>
+      </Route>
+
+
    
 
 
     </Routes>
     </ThemeProvider>
-    </BrowserRouter>
+ 
+    
+
+
       
   )
 }

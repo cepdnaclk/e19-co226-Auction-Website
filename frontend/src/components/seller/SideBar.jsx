@@ -28,16 +28,10 @@ const SideBar = () => {
         <Box
           className={` ${open ? "w-72" : "w-20 "
             }  h-screen p-5  
-            pt-8 duration-300 overflow-y-auto ` } sx={{backgroundColor: "#e3"}}
+            pt-8 duration-300 overflow-y-auto ` } sx={{backgroundColor: "#fff8e1"}}
         >
           <div className="flex gap-x-7 items-center">
             <img src={logo2} width="50" height="80"/>
-            {/* <h1 className={`text-3xl origin-left font-mono text-transparent bg-clip-text 
-            bg-gradient-to-r from-blue-900 via-blue-900 to-blue-700 bg-sky-950 font-extrabold"}`}
-            >
-              BIDCIRCLE
-  
-            </h1> */}
             <Typography variant="h5" color="#3f51b5" fontFamily="monospace" fontSize="30" fontWeight="bold">BIDCIRCLE</Typography>
       
           </div>

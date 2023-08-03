@@ -12,7 +12,7 @@ import { blue } from '@mui/material/colors';
 import LoginService from '../services/LoginServices';
 
 const LogInForm = () => {
-    const { setAuth } = UseAuth();
+    const { auth, setAuth } = UseAuth();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -25,12 +25,16 @@ const LogInForm = () => {
 
 
   const handleFormSubmit = (values, {resetForm}) => {
+   
     console.log(values);
     LoginService.login(values)
+    
     .then((response)=>{
         const accessToken = response.accessToken;
         const roles = response.roles;
         const name = response.userName;
+        console.log(auth)
+        console.log(name, roles);
         setAuth({ "userName": name, "roles": roles, "accessToken": accessToken });
         const currentURL = window.location.href;
         const parts = from.split("/");
