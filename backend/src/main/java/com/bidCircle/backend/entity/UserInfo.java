@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+//@Table(uniqueConstraints = {@UniqueConstraint(name = "UniqueEmail", columnNames = {"email"})})
 public class UserInfo {
 
     @Id
@@ -19,6 +20,7 @@ public class UserInfo {
     private String password;
     private String roles;
     private boolean enabled = false;
+//    @Column(unique = true)
     private String email;
 
 }

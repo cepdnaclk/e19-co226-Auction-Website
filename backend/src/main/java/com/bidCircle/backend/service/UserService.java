@@ -26,4 +26,6 @@ public interface UserService {
     void changePassword(UserInfo user, String newPassword);
 
     boolean checkIfValidOldPassword(UserInfo user, String oldPassword);
+
+    void registerAuctioneer(UserModel userModel);
 }

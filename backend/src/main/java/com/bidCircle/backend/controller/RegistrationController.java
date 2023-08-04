@@ -33,6 +33,9 @@ public class RegistrationController {
     @PostMapping("/register")
     public String registerUser(@RequestBody UserModel userModel, final HttpServletRequest request) {
         UserInfo user = userService.registerUser(userModel);
+        if (userModel.getRoles()=="ROLE_SELLER") {
+            userService.registerAuctioneer(userModel);
+        }
         publisher.publishEvent(new RegistrationCompleteEvent(
                 user,
                 applicationUrl(request)
