@@ -35,7 +35,9 @@ public class SecurityConfig {
         DefaultSecurityFilterChain build = http.csrf().disable().authorizeHttpRequests()
                 .requestMatchers("/","/register", "/verifyRegistration", "/resendVerifyToken",
                 "/resetPassword", "/savePassword", "/changePassword", "/login", "/hello",
-                "admin/addCategory", "seller/upload", "seller/hi", "seller/addItem", "seller/item").permitAll()
+                "admin/addCategory",
+                        "seller/upload", "seller/hi", "seller/addItem", "seller/item"
+                ,"admin/addSeller").permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/").authenticated()//hasRole("DOCTOR")
                 //for jwt token

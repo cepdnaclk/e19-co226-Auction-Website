@@ -1,5 +1,6 @@
 package com.bidCircle.backend.controller;
 
+import com.bidCircle.backend.model.AddNewSeller;
 import com.bidCircle.backend.model.CategoryModel;
 import com.bidCircle.backend.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +17,11 @@ public class AdminController {
 
          adminService.addCategory(categoryModel);
          return "Success";
+    }
+    @PostMapping("/addSeller")
+    public String addNewSeller(@RequestBody AddNewSeller addNewSeller){
+
+        adminService.addNewSeller(addNewSeller);
+        return "Success";
     }
 }

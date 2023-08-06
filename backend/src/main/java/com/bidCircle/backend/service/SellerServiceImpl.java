@@ -9,10 +9,13 @@ import com.bidCircle.backend.repository.AuctioneerRepository;
 import com.bidCircle.backend.repository.CategoryRepository;
 import com.bidCircle.backend.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 @Service
@@ -28,7 +31,7 @@ public class SellerServiceImpl implements SellerService{
     private CategoryRepository categoryRepository;
 
     @Override
-    public Item addItem(ItemModel itemModel) throws DateTimeException {
+    public long addItem(ItemModel itemModel) throws DateTimeException {
         Item item = new Item();
         item.setDescription(itemModel.getDescription());
         item.setTitle(itemModel.getTitle());
@@ -39,17 +42,19 @@ public class SellerServiceImpl implements SellerService{
         item.setAuctioneer(auctioneer);
         item.setStartPrice(Integer.parseInt(itemModel.getStartPrice()));
         item.setIncrementPrice(Integer.parseInt(itemModel.getIncrementPrice()));
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
         try {
             item.setStartDate(format.parse(itemModel.getStartDate()));
-        }catch (Exception e){
-            throw new DateTimeException("invalid start date");
+        }catch (ParseException e) {
+            throw new DateTimeParseException("invalid start date", itemModel.getStartDate(), e.getErrorOffset());
         }
         try {
             item.setEndDate(format.parse(itemModel.getEndDate()));
-        }catch (Exception e){
-            throw new DateTimeException("invalid end date");
-        }return item;
+        }catch (ParseException e) {
+            throw new DateTimeParseException("invalid start date", itemModel.getStartDate(), e.getErrorOffset());
+
+        }itemRepository.save(item);
+        return item.getId();
     }
 
     @Override
@@ -61,5 +66,13 @@ public class SellerServiceImpl implements SellerService{
     @Override
     public Optional<Item> getItemById(long id) {
         return itemRepository.findById(id);
+    }
+
+    @Override
+    public Item findItemById(long id) throws ChangeSetPersister.NotFoundException {
+        Optional<Item> itemOptional = itemRepository.findById(id);
+        Item item = itemOptional.orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+        return item;
+
     }
 }

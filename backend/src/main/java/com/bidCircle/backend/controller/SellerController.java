@@ -56,9 +56,11 @@ public class SellerController {
         itemModel.setStartPrice(startPrice);
         itemModel.setIncrementPrice(incrementPrice);
         itemModel.setCategory(category);
-        Item item = sellerService.addItem(itemModel);
+        long id = sellerService.addItem(itemModel);
+
 
         for (MultipartFile file : files) {
+            Item item = sellerService.findItemById(id);
             Image attachment = imageService.saveImages(file, item);
             // Assuming this line is supposed to save the image to the database.
             item.addImage(attachment);
@@ -73,7 +75,7 @@ public class SellerController {
                     file.getSize());
 
             responseDataList.add(fileDataModel);
-        }sellerService.saveItem(item);
+        }
 
 
 
