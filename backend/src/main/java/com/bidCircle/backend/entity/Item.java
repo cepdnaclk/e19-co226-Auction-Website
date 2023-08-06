@@ -26,7 +26,7 @@ public class Item {
     private Date endDate;
     private int startPrice;
     private int incrementPrice;
-    private boolean isClosed;
+    private boolean isClosed=false;
 
     @OneToMany(mappedBy = "item")
     private List<Image> images = new ArrayList<>();
@@ -37,6 +37,18 @@ public class Item {
             referencedColumnName = "userName"
     )@JsonIgnore
     private Auctioneer auctioneer;
+
+    @ManyToOne()
+    @JoinColumn(
+            name = "c_name",
+            referencedColumnName = "name"
+    )@JsonIgnore
+    private Category category;
+
+
+    public void addImage(Image image){
+        this.images.add(image);
+    }
 
 
 }

@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.sql.Blob;
+
 
 @Entity
 @Data
@@ -25,7 +27,7 @@ public class Image {
     private String fileType;
 
     @Lob
-    private byte[] data;
+    private Blob data;
 
     @ManyToOne()
     @JoinColumn(

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Blob;
+
 @Service
 public class FileServiceImpl implements FileService {
 
@@ -24,7 +26,9 @@ public class FileServiceImpl implements FileService {
             Image attachment = new Image();
             attachment.setFileName(fileName);
             attachment.setFileType(file.getContentType());
-            attachment.setData(file.getBytes());
+//            attachment.setData(file.getBytes());
+            Blob blob = new javax.sql.rowset.serial.SerialBlob(file.getBytes());
+            attachment.setData(blob);
             return imageRepository.save(attachment);
 
         } catch (Exception e) {

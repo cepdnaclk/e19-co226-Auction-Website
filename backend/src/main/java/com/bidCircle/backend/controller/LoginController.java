@@ -1,5 +1,6 @@
 package com.bidCircle.backend.controller;
 
+
 import com.bidCircle.backend.model.AuthRequest;
 import com.bidCircle.backend.model.TokenModel;
 import com.bidCircle.backend.repository.UserInfoRepository;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

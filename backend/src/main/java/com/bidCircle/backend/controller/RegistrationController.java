@@ -3,6 +3,7 @@ package com.bidCircle.backend.controller;
 import com.bidCircle.backend.entity.UserInfo;
 import com.bidCircle.backend.entity.VerificationToken;
 import com.bidCircle.backend.event.RegistrationCompleteEvent;
+
 import com.bidCircle.backend.model.PasswordModel;
 import com.bidCircle.backend.model.UserModel;
 import com.bidCircle.backend.service.MailService;

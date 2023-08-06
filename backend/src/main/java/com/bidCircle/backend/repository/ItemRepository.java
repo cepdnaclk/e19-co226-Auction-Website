@@ -1,2 +1,9 @@
-package com.bidCircle.backend.repository;public interface ItemRepository {
+package com.bidCircle.backend.repository;
+
+import com.bidCircle.backend.entity.Item;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ItemRepository extends JpaRepository<Item,Long> {
 }

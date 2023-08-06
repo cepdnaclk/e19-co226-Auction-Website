@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AuctioneerRepository extends JpaRepository<Auctioneer, String> {
+    Auctioneer findByUserName(String userName);
 }

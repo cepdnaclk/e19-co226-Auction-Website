@@ -19,6 +19,7 @@ import java.util.List;
 public class Auctioneer {
     @Id
     private String userName;
+    private String companyName;
 
     @OneToMany(mappedBy = "auctioneer")
     private List<Item> items = new ArrayList<>();

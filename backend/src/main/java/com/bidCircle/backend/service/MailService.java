@@ -1,7 +1,6 @@
 package com.bidCircle.backend.service;
 
 import com.bidCircle.backend.entity.UserInfo;
-import com.bidCircle.backend.model.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

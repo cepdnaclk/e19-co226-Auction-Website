@@ -4,6 +4,7 @@ import com.bidCircle.backend.entity.UserInfo;
 import com.bidCircle.backend.entity.VerificationToken;
 import com.bidCircle.backend.model.UserModel;
 
+
 import java.util.Optional;
 
 public interface UserService {
