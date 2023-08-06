@@ -59,7 +59,7 @@ public class SellerController {
         Item item = sellerService.addItem(itemModel);
 
         for (MultipartFile file : files) {
-            Image attachment = imageService.saveImages(file);
+            Image attachment = imageService.saveImages(file, item);
             // Assuming this line is supposed to save the image to the database.
             item.addImage(attachment);
             String downloadUrl = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -109,23 +109,23 @@ public class SellerController {
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(itemResponseModel);
     }
 
-    @PostMapping("/upload")
-    public FileDataModel uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
-        Image attachment = null;
-        String downloadURl = "";
-        attachment = imageService.saveImages(file);
-        downloadURl = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/download/")
-                .path(attachment.getId())
-                .toUriString();
-
-        FileDataModel fileDataModel = new FileDataModel();
-        fileDataModel.setFileName(attachment.getFileName());
-        fileDataModel.setFileSize(file.getSize());
-        fileDataModel.setFileType(file.getContentType());
-        fileDataModel.setDownloadURL(downloadURl);
-        return fileDataModel;
-    }
+//    @PostMapping("/upload")
+//    public FileDataModel uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
+//        Image attachment = null;
+//        String downloadURl = "";
+//        attachment = imageService.saveImages(file);
+//        downloadURl = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                .path("/download/")
+//                .path(attachment.getId())
+//                .toUriString();
+//
+//        FileDataModel fileDataModel = new FileDataModel();
+//        fileDataModel.setFileName(attachment.getFileName());
+//        fileDataModel.setFileSize(file.getSize());
+//        fileDataModel.setFileType(file.getContentType());
+//        fileDataModel.setDownloadURL(downloadURl);
+//        return fileDataModel;
+//    }
     @GetMapping("/hi")
     public String hello(){
         return "ff";

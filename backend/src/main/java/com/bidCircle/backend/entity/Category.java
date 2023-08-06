@@ -20,4 +20,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private List<Item> items = new ArrayList<>();
+
+    public void addItems(Item item){this.items.add(item);}
 }

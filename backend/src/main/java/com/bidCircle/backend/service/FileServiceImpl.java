@@ -1,6 +1,7 @@
 package com.bidCircle.backend.service;
 
 import com.bidCircle.backend.entity.Image;
+import com.bidCircle.backend.entity.Item;
 import com.bidCircle.backend.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private ImageRepository imageRepository;
     @Override
-    public Image saveImages(MultipartFile file) throws Exception {
+    public Image saveImages(MultipartFile file, Item item) throws Exception {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if(fileName.contains("..")) {
@@ -29,6 +30,7 @@ public class FileServiceImpl implements FileService {
 //            attachment.setData(file.getBytes());
             Blob blob = new javax.sql.rowset.serial.SerialBlob(file.getBytes());
             attachment.setData(blob);
+            attachment.setItem(item);
             return imageRepository.save(attachment);
 
         } catch (Exception e) {

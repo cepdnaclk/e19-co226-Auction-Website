@@ -34,6 +34,8 @@ public class SellerServiceImpl implements SellerService{
         item.setTitle(itemModel.getTitle());
         Auctioneer auctioneer = auctioneerRepository.findByUserName(itemModel.getUserName());
         Category category = categoryRepository.findByName(itemModel.getCategory());
+        category.addItems(item);
+        item.setCategory(category);
         item.setAuctioneer(auctioneer);
         item.setStartPrice(Integer.parseInt(itemModel.getStartPrice()));
         item.setIncrementPrice(Integer.parseInt(itemModel.getIncrementPrice()));
