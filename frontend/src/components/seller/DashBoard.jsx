@@ -4,6 +4,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import {Box} from '@mui/material';
 import Header from '../themes/Header';
 import NavBar from './NavBar';
+import AddItem from './AddItem';
 const DashBoard = () => {
     const props = useMediaQuery("(min-width:600px)");
   return (
@@ -18,6 +19,7 @@ const DashBoard = () => {
         <Header title="DASHBOARD" subtitle="BIDCIRCLE Seller dashboard" />
 
       </Box>
+      <AddItem/>
      
       </Box>
       </div>
