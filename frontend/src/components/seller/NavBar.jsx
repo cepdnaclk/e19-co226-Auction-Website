@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Logout from '@mui/icons-material/Logout';
+import { ClassNames } from '@emotion/react';
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -37,29 +38,40 @@ export default function NavBar() {
   };
 
   return (
-    <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: "space-between", gap: "30px", backgroundColor: "", width: '79vw', position: 'fixed', top: '0', height: "60px", paddingLeft: "5px" }}>
-        <Typography variant="h5" color="#3f51b5" fontFamily="monospace" fontSize="30" fontWeight="bold">BIDCIRCLE</Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: "right", gap: "30px" }}>
-          <IconButton
-            onClick={handleNotifyClick}
-            size="small"
-            sx={{ ml: 2 }}
-          >
-            <Badge badgeContent={50} sx={{ color: "#42a5f5" }}>
-              <NotificationsActiveIcon />
-            </Badge>
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: '30px',
+        backgroundColor: 'white',
+        width: '79vw',
+        position: 'fixed',
+        top: '0',
+        height: '60px',
+        paddingLeft: '5px',
+      }}
+    >
+      <Typography
+        variant="h5"
+        color="#3f51b5"
+        fontFamily="monospace"
+        fontSize="30"
+        fontWeight="bold"
+      >
+        BIDCIRCLE
+      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right', gap: '30px' }}>
+        <IconButton onClick={handleNotifyClick} size="small" sx={{ ml: 2 }}>
+          <Badge badgeContent={50} sx={{ color: '#42a5f5' }}>
+            <NotificationsActiveIcon />
+          </Badge>
+        </IconButton>
+        <Tooltip title="Account settings">
+          <IconButton onClick={handleClick} size="small" sx={{ ml: 2 }}>
+            <Avatar sx={{ width: 32, height: 32, color: '#42a5f5' }}>W</Avatar>
           </IconButton>
-          <Tooltip title="Account settings">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              sx={{ ml: 2 }}
-            >
-              <Avatar sx={{ width: 32, height: 32, color: "#42a5f5" }}>W</Avatar>
-            </IconButton>
-          </Tooltip>
-        </Box>
+        </Tooltip>
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -110,10 +122,16 @@ export default function NavBar() {
         </MenuItem>
       </Menu>
 
-      <Popper open={openNotify} anchorEl={anchorE2} placement="bottom-end" onClose={handleCloseNotify}
-        sx={{ boxShadow: '2px 2px 10px 5px rgba(0, 0, 0, 0.2)', width: '500px', height: '70vh' }}>
-        <Box sx={{padding:'10px'}}>jjjj</Box>
+      <Popper
+        open={openNotify}
+        anchorEl={anchorE2}
+        placement="bottom-end"
+        onClose={handleCloseNotify}
+        sx={{ boxShadow: '2px 2px 10px 5px rgba(0, 0, 0, 0.2)', width: '500px', height: '70vh' }}
+      >
+        <Box sx={{ padding: '10px' }}>jjjj</Box>
       </Popper>
-    </React.Fragment>
+    </Box>
   );
-}
+};
+

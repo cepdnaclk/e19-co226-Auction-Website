@@ -1,9 +1,8 @@
-import React from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Box, Button, TextField, MenuItem, Typography } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState } from "react";
 import UseAuth from '../hooks/UseAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Header from '../themes/Header';
@@ -18,7 +17,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateField } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import Dropzone from './Dropzone';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import * as React from 'react';
 
+
+//for popup alerts
 
 
 
@@ -29,12 +33,70 @@ const AddItem = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
   const isNonMobile = useMediaQuery("(min-width:600px)");
+
+  //for popup alerts
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
   
   const navigate = useNavigate();
   const colorblue = blue[900];
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  //to drag and drop files
+  const [files, setFiles] = useState([])
+  const [rejected, setRejected] = useState([])
+
+
+  const [state, setState] = useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+    msg:'only images up to 1mb are accepted',
+    sev: 'error'
+  });
+  const { vertical, horizontal, open, msg, sev } = state;
+
+  //to popup alerts
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+
+  //for drag and drop
+  const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+    if(acceptedFiles.length>4){
+        setState({...state, open: true, msg: "only 4 image files of each 1MB are accepted", sev:'error'})
+    }
+
+    else if (acceptedFiles?.length) {
+      setFiles(previousFiles => [
+        ...previousFiles,
+        ...acceptedFiles.map(file =>
+          Object.assign(file, { preview: URL.createObjectURL(file) })
+        )
+      ])
+    }
+    
+    if (rejectedFiles?.length) {
+      setRejected(previousFiles => [...previousFiles, ...rejectedFiles])
+      setState({...state, open: true, msg: "only 4 image files of each 1MB are accepted", sev:'error'})
+    }
+  }, [state])
+
+  //remove submited files
+  const removeRejected = name => {
+    setRejected(files => files.filter(({ file }) => file.name !== name))
+  }
+
+  //remove submitted by clicking
+  const removeFile = name => {
+    setFiles(files => files.filter(file => file.name !== name))
+  }
+
+  
 
 
   const handleFormSubmit = (values, {resetForm}) => {
@@ -60,13 +122,7 @@ const AddItem = () => {
     resetForm();
   };
 
-  function formatDateToString(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    
-    return `${year}/${month}/${day}`;
-  }
+  
 
   
   return (
@@ -80,6 +136,16 @@ const AddItem = () => {
           </Typography>
         </Box>
       )}
+
+    <Box sx={{ width: 500 }}>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        key='topcenter'
+      ><Alert severity={sev}>{msg}</Alert>
+      </Snackbar>
+    </Box>
 
 
       <Formik
@@ -220,7 +286,7 @@ const AddItem = () => {
             
             </LocalizationProvider>
 
-            <Dropzone/>
+            <Dropzone onDrop={onDrop} files={files} rejected={rejected} removeRejected={removeRejected} removeFile={removeFile}/>
                     
               
               

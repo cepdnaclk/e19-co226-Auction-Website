@@ -7,25 +7,21 @@ import NavBar from './NavBar';
 import AddItem from './AddItem';
 const DashBoard = () => {
     const props = useMediaQuery("(min-width:600px)");
-  return (
-    <>
-      <Box className="flex">
-        <SideBar/>
-        <div className={` ${props ? "left-72 w-[calc(100%-300px)]" : "left-20 w-[calc(100%-55px)]"} absolute`}>
-        <NavBar/>
-        <Box m="20px">
-      {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center" marginTop="65px">
-        <Header title="DASHBOARD" subtitle="BIDCIRCLE Seller dashboard" />
-
-      </Box>
-      <AddItem/>
-     
-      </Box>
-      </div>
-      </Box>
-      </>
-  )
-}
+    return (
+        <Box className="flex">
+          <SideBar />
+          <div style={{ marginLeft: '300px', width: 'calc(100% - 300px)' }}>
+            <NavBar />
+            <Box m="20px" p="65px" className="mt-16 p-4">
+              {/* HEADER */}
+              <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Header title="DASHBOARD" subtitle="BIDCIRCLE Seller dashboard" />
+              </Box>
+              <AddItem />
+            </Box>
+          </div>
+        </Box>
+      );
+    };
 
 export default DashBoard

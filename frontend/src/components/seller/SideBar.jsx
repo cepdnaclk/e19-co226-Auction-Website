@@ -28,7 +28,7 @@ const SideBar = () => {
         <Box
           className={` ${open ? "w-72" : "w-20 "
             }  h-screen p-5  
-            pt-8 duration-300 overflow-y-auto ` } sx={{backgroundColor: "#fff8e1"}}
+            pt-8 duration-300 overflow-y-auto fixed top-0 left-0  }`} sx={{backgroundColor: "#fff8e1"}}
         >
           <div className="flex gap-x-7 items-center">
             <img src={logo2} width="50" height="80"/>
