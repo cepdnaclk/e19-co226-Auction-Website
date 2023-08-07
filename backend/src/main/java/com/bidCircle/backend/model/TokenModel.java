@@ -11,4 +11,5 @@ public class TokenModel {
     private String accessToken;
     private String roles;
     private String userName;
+    private String companyName;
 }

@@ -1,8 +1,10 @@
 package com.bidCircle.backend.controller;
 
 
+import com.bidCircle.backend.entity.Auctioneer;
 import com.bidCircle.backend.model.AuthRequest;
 import com.bidCircle.backend.model.TokenModel;
+import com.bidCircle.backend.repository.AuctioneerRepository;
 import com.bidCircle.backend.repository.UserInfoRepository;
 import com.bidCircle.backend.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,11 @@ public class LoginController {
     @Autowired
     private UserInfoRepository userInfoRepository;
 
+    @Autowired
+    private AuctioneerRepository auctioneerRepository;
+
+
+
     @PostMapping("/login")
     public TokenModel authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
@@ -35,11 +42,18 @@ public class LoginController {
             tokenModel.setAccessToken(acessToken);
             tokenModel.setRoles(roles);
             tokenModel.setUserName(authRequest.getUserName());
+            if (roles.equals("ROLE_SELLER")){
+                Auctioneer auctioneer = auctioneerRepository.findByUserName(authRequest.getUserName());
+                tokenModel.setCompanyName(auctioneer.getCompanyName());
+            }else{
+                tokenModel.setCompanyName("");
+            }
             return tokenModel;
         } else {
             tokenModel.setAccessToken("");
             tokenModel.setRoles("");
             tokenModel.setUserName("");
+            tokenModel.setCompanyName("");
             return tokenModel;
         }
 

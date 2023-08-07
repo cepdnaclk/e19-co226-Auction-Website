@@ -3,6 +3,7 @@ package com.bidCircle.backend.service;
 import com.bidCircle.backend.entity.UserInfo;
 import com.bidCircle.backend.entity.VerificationToken;
 import com.bidCircle.backend.model.UserModel;
+import org.springframework.data.crossstore.ChangeSetPersister;
 
 
 import java.util.Optional;
@@ -29,4 +30,6 @@ public interface UserService {
     boolean checkIfValidOldPassword(UserInfo user, String oldPassword);
 
     void registerAuctioneer(UserModel userModel);
+
+    Optional<UserInfo> findUserByUserName(String userName);
 }

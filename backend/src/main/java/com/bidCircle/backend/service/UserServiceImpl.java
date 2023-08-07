@@ -11,6 +11,7 @@ import com.bidCircle.backend.repository.PasswordResetTokenRepository;
 import com.bidCircle.backend.repository.UserInfoRepository;
 import com.bidCircle.backend.repository.VerificationTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +56,14 @@ public class UserServiceImpl implements UserService {
 
         verificationTokenRepository.save(verificationToken);
     }
+
+//    @Override
+//    public void saveVerificationTokenForUser(String token, Auctioneer user) {
+//        VerificationToken verificationToken
+//                = new VerificationToken(user, token);
+//
+//        verificationTokenRepository.save(verificationToken);
+//    }
 
     @Override
     public String validateVerificationToken(String token) {
@@ -142,5 +151,11 @@ public class UserServiceImpl implements UserService {
         Auctioneer auctioneer = new Auctioneer();
         auctioneer.setUserName(userModel.getUserName());
         auctioneerRepository.save(auctioneer);
+    }
+
+    @Override
+    public Optional<UserInfo> findUserByUserName(String userName)  {
+        return userRepository.findByUserName(userName);
+
     }
 }
