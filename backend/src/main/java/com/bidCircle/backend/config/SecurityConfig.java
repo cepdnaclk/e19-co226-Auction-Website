@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,10 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
-//@EnableMethodSecurity
 public class SecurityConfig {
     @Autowired
     private JwtAuthFilter authFilter;
@@ -36,10 +37,11 @@ public class SecurityConfig {
                 .requestMatchers("/","/register", "/verifyRegistration", "/resendVerifyToken",
                 "/resetPassword", "/savePassword", "/changePassword", "/login", "/hello",
                 "admin/addCategory",
-                        "seller/upload", "seller/hi", "seller/addItem", "seller/item"
-                ,"admin/addSeller").permitAll()
+                        "seller/upload", "seller/item", "seller/addItem"
+                ,"admin/addSeller", "seller/hi").permitAll()
                 .and()
-                .authorizeHttpRequests().requestMatchers("/").authenticated()//hasRole("DOCTOR")
+            .authorizeHttpRequests().requestMatchers("seller/hi").authenticated()//hasRole("DOCTOR")
+
                 //for jwt token
                 .and()
                 .sessionManagement()
