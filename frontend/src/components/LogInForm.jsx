@@ -33,16 +33,14 @@ const LogInForm = () => {
         const accessToken = response.accessToken;
         const roles = response.roles;
         const name = response.userName;
-        console.log(auth)
-        console.log(name, roles);
+        
         setAuth({ "userName": name, "roles": roles, "accessToken": accessToken });
         const currentURL = window.location.href;
         const parts = from.split("/");
         const login = parts[1];
-        console.log(login);
+        console.log(response.companyName);
         const convertedRole = roles.substring(5).toLowerCase();
         const capitalRole = convertedRole.charAt(0).toUpperCase() + convertedRole.slice(1);
-        console.log(convertedRole);
         if (convertedRole!=login){
             setErrorMessage(capitalRole+" dont have acces to "+login+" content");
           

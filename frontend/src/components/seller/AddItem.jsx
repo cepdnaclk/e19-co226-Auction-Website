@@ -20,6 +20,7 @@ import Dropzone from './Dropzone';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import * as React from 'react';
+import axios from 'axios';
 
 
 //for popup alerts
@@ -30,6 +31,7 @@ import * as React from 'react';
 
 const AddItem = () => {
     const { auth, setAuth } = UseAuth();
+    const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
   const isNonMobile = useMediaQuery("(min-width:600px)");
@@ -39,7 +41,7 @@ const AddItem = () => {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
   
-  const navigate = useNavigate();
+
   const colorblue = blue[900];
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -99,27 +101,58 @@ const AddItem = () => {
   
 
 
-  const handleFormSubmit = (values, {resetForm}) => {
-    // const startDate = values.startDate
-    // ? `${values.startDate.getFullYear()}/${String(values.startDate.getMonth() + 1).padStart(2, '0')}/${String(values.startDate.getDate()).padStart(2, '0')}`
-    // : "";
-    // setFieldValue('startDate', formattedStartDate);
-    const formattedDate = dayjs(values.startDate).format('MM/DD/YYYY');
+  const handleFormSubmit = async (values, {resetForm}) => {
     
-    const data = {
+
+    const formattedDate = dayjs(values.startDate).format('MM/DD/YYYY');
+    const formattedDEnd = dayjs(values.endDate).format('MM/DD/YYYY');
+    try{
+    const form = new FormData();
+    files.forEach(file => form.append('file', file));
+    form.append("userName","seller1" )
+    form.append("title", values.title);
+    form.append("category", values.category);
+    form.append("description", values.description);
+    form.append("startDate", formattedDate);
+    form.append("endDate", formattedDEnd);
+    form.append("startPrice", values.startPrice);
+    form.append("incrementPrice", values.incrementPrice)
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log(user.accessToken );
+    
+    
+    const response = await axios.post('http://localhost:9081/seller/addItem', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': user.accessToken  
+        }
+      });
+      console.log(response.data)
+    }catch(e){
+        console.log(e);
+        localStorage.removeItem("user");
+        navigate("/seller/dashboard");
+
+    }
+    console.log("hi");
+
    
-        title: values.title,
-        category: values.category,
-        description: values.description,
-        startDate: formattedDate,
-        endDate: values.endDate,
-        startPrice: values.startPrice,
-        endPrice: values.incrementPrice
+    
+    // const data = {
+   
+    //     title: values.title,
+    //     category: values.category,
+    //     description: values.description,
+    //     startDate: formattedDate,
+    //     endDate: values.endDate,
+    //     startPrice: values.startPrice,
+    //     endPrice: values.incrementPrice
         
-    };
+    // };
    
-    console.log(data);
+    // console.log(data);
     resetForm();
+    setFiles([]);
   };
 
   
@@ -127,7 +160,7 @@ const AddItem = () => {
   
   return (
     <Box m="10px">
-      <Header title="" subtitle="LOGIN" />
+      <Header title="" subtitle="CREATE LISTING" />
       
         {errorMessage && (
         <Box mt="50px">
@@ -222,7 +255,7 @@ const AddItem = () => {
                 label="Description"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                value={values.password}
+                value={values.description}
                 name="description"
                 error={touched.description && errors.description}
                 helperText={touched.description && errors.description}
@@ -245,11 +278,11 @@ const AddItem = () => {
                 sx={{ gridColumn: "span 2" }}
               />
 
-<TextField
+            <TextField
                 fullWidth
                 variant="filled"
                 type="text"
-                label="incrementPrice"
+                label="increment Price"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.incrementPrice}
@@ -296,7 +329,7 @@ const AddItem = () => {
             <Box display="grid" color="primary" variant="contained">
               <Button type="submit" color='secondary' variant='contained' >
             
-                LOGIN
+                CREATE LISTING
               </Button>
             </Box>
           </form>

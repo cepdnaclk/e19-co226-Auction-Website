@@ -12,7 +12,7 @@ const SideBar = () => {
     const navigate = useNavigate();
     const Menus = [
       { title: "Dashboard", src: <AiFillDashboard size={30} color="#575573" />, path: "/seller/dashboard" },
-      { title: "Add Items", src: <AiFillFileAdd size={30} color="#575573"/>, path: "/admin/addStaff" },
+      { title: "Create Items", src: <AiFillFileAdd size={30} color="#575573"/>, path: "/seller/createListing" },
     ];
   
     const navigateDashBoard = (e, path) => {

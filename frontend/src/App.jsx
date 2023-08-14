@@ -7,6 +7,7 @@ import { blue, cyan, indigo } from '@mui/material/colors';
 import SellerDashBoard from './components/seller/DashBoard';
 import RequireAuth from './components/RequireAuth';
 import Layout from './components/Layout';
+import Listings from './components/User/Listings';
 
 
 const lightTheme = createTheme({
@@ -32,10 +33,12 @@ function App() {
       <Route path ="/" element ={<Signup props = "signup"/>}/>
       <Route path ="/signup" element ={<Signup props = "signup"/>}/>
       <Route path ="/login" element ={<Signup props = "login"/>}/>
+      <Route path = "/listings" element = {<Listings/>}/>
 
 //potected route
      <Route element={<RequireAuth allowedRoles="ROLE_SELLER" />}>
       <Route path = "/seller/dashboard" element = {<SellerDashBoard/>}/>
+      <Route path = "/seller/createListing" element = {<CreateListing/>}/>
       </Route>
       </Route>
 
