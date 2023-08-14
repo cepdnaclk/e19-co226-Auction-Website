@@ -38,9 +38,9 @@ public class SecurityConfig {
                 "/resetPassword", "/savePassword", "/changePassword", "/login", "/hello",
                 "admin/addCategory",
                         "seller/upload", "seller/item", "seller/addItem"
-                ,"admin/addSeller", "seller/hi").permitAll()
+                ,"admin/addSeller", "seller/hi", "listing/item", "listing/all").permitAll()
                 .and()
-            .authorizeHttpRequests().requestMatchers("seller/hi").authenticated()//hasRole("DOCTOR")
+            .authorizeHttpRequests().requestMatchers("seller/hi", "seller/addItem").authenticated()//hasRole("DOCTOR")
 
                 //for jwt token
                 .and()

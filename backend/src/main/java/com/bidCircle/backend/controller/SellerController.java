@@ -38,7 +38,7 @@ public class SellerController {
 
 
     @PostMapping("/addItem")
-
+    @PreAuthorize("hasAuthority('ROLE_SELLER')")
     public List<FileDataModel> uploadFiles(@RequestParam("file") MultipartFile[] files,
 //                                           @RequestBody ItemModel itemModel
                @RequestParam("userName") String userName, @RequestParam("title") String title,

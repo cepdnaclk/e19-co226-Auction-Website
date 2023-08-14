@@ -21,6 +21,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String title;
+    @Lob
     private String description;
     private Date startDate;
     private Date endDate;
