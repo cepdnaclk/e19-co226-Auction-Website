@@ -18,6 +18,7 @@ const OneListing = () => {
     const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id');
+  const [idx, setIdx] = useState(0);
 
   //convert encoded byte array to blob url
   function byteArrayToImage(byte) {
@@ -33,6 +34,9 @@ const OneListing = () => {
 
       
       return imageUrl;
+  }
+  const handleChangeImg = (id)=>{
+    setIdx(id);
   }
   
 
@@ -76,18 +80,47 @@ const OneListing = () => {
             <Grid item sm={1}>
             <Grid container direction="column" justifyContent="flex-start"
   alignItems="center"  sx={{height:'500px'}} gap={1}>
-                {imageList.map((image)=>(
-                    <img src={image} style={{height:'70px'}}/>
+                {imageList.map((image,index)=>(
+                    <Button onClick={()=>handleChangeImg(index)}><img src={image} style={{height:'70px'}}/></Button>
                 ))}
                 
                 </Grid>
             </Grid>
             <Grid item sm={5}>
-            <img src={imageList[0]} style={{height:'500px'}}/>
+            <img src={imageList[idx]} style={{height:'500px'}}/>
             </Grid>
             <Grid item sm={5}>
                 <Typography variant='h4' sx={{color:'#006064'}}>{detail.title}</Typography>
                 <Divider/>
+                <br/>
+                <Typography variant='h6' sx={{color:'#1a237e', fontWeight:'bold'}}>Current Price:</Typography>
+                <Typography variant='h3' sx={{color:'#1a237e', fontWeight:'bold'}}>LKR {detail.startPrice}.00</Typography>
+                <br/>
+                <Divider/>
+                <br/>
+                <Typography variant='subtitle1' sx={{color:'#212121'}}>Auction Ends on {detail.endDate}</Typography>
+                <br/>
+                <Divider/>
+                
+                <br/>
+                <Typography variant='h7' sx={{color:'#212121', fontWeight:'bol'}}>Increment Price: LKR {detail.incrementPrice}.00
+                </Typography>
+                <br/>
+                <br/>
+                <Divider/>
+                <Box display="grid" direction="column" gap={1} marginTop={4}>
+                
+                <Button  color='secondary' variant='contained' >  
+            Place a bid
+          </Button>
+          
+        
+            <Button  color='secondary' variant='contained' >  
+                Add to watchList
+            </Button>
+         
+          </Box>
+          
             </Grid>
         </Grid>
         <Typography variant='subtitle1' sx={{color:'#212121'}}>Description</Typography>
