@@ -4,8 +4,16 @@ import { useEffect, useState } from 'react';
 import ListingService from '../../services/ListingService';
 import ImageGrid from './ImageGrid';
 import MainImage from './MainImage';
+import { Grid } from '@mui/material';
+import { Details } from '@mui/icons-material';
+
+
+
 
 const OneListing = () => {
+    const [imageList, setImageList] = useState([]);
+
+    const [detail, setdetail] = useState([]);
     const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id');
@@ -25,51 +33,43 @@ const OneListing = () => {
       
       return imageUrl;
   }
-  const [imageList, setImageList] = useState([]);
-  const [title, settitle] = useState();
-const [data, setdata] = useState()
+  
 
   useEffect(() => {
     const fetchData = async () => {
       
       try {
         const response = await ListingService.getItemData(id);
+        setdetail(response.data);
     
-    const newItems = {
-      
-      title: response.data.title,
-      description: response.data.description,
-
-      
-    };
-
-    setdata(newItems);
-
-    const data = response.data.data.map(e => (
-      
-        byteArrayToImage(e)
-        
-        
-      ));
-  
-      setImageList(data);
-            
+    
+    const d = response.data.data.map(e => ({
+        img: byteArrayToImage(e)
+      }));
+      setImageList(d);
        
             
        
+       console.log(imageList)
       } catch (error) {
         console.log(error);
         console.log("fetch err");
       }
+    //   console.log(detail);
+      
       
       
     };
     fetchData();
-  }, []);
-
+  }, [id]);
+  console.log(detail);
+  console.log(imageList)
 
   return (
-    <div>{id}{data.title}</div>
+    <div>jj
+    
+
+    </div>
   )
 }
 
