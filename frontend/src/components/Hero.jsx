@@ -1,26 +1,27 @@
 import { Box, Button, styled, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
-import Navbar from "./Navbar";
+
 
 import heroImg from "../assests/heroimg.jpg";
-import CustomButton from "./CustomButton";
+
 
 const Hero = () => {
   const CustomBox = styled(Box)(({ theme }) => ({
     display: "flex",
     justifyContent: "center",
-    gap: theme.spacing(5),
-    marginTop: theme.spacing(3),
-    [theme.breakpoints.down("md")]: {
-      flexDirection: "column",
-      alignItems: "center",
-      textAlign: "center",
-    },
+    alignItems:"center",
+    gap: theme.spacing(35),
+   
+    // [theme.breakpoints.down("md")]: {
+    //   flexDirection: "column",
+    //   alignItems: "space-around",
+    //   textAlign: "center",
+    // },
   }));
 
   const Title = styled(Typography)(({ theme }) => ({
-    fontSize: "64px",
+    fontSize: "25px",
     color: "#000336",
     fontWeight: "bold",
     margin: theme.spacing(4, 0, 4, 0),
@@ -30,9 +31,9 @@ const Hero = () => {
   }));
 
   return (
-    <Box sx={{ backgroundColor: "#E6F0FF", minHeight: "80vh" }}>
+    <Box sx={{ backgroundColor: "#E6F0FF", height:'300'}}>
       <Container>
-        <Navbar />
+        
         <CustomBox>
           <Box sx={{ flex: "1" }}>
             <Typography
@@ -47,7 +48,8 @@ const Hero = () => {
             >
               Welcome to BIDCIRCLE
             </Typography>
-            <Title variant="h1">Your Trusted Online Auction Site.</Title>
+            <Title variant="h5">Your Trusted Online Auction Site</Title>
+            
             <Typography
               variant="body2"
               sx={{ fontSize: "18px", color: "#5A6473", my: 4 }}
@@ -55,19 +57,14 @@ const Hero = () => {
               Where every bid is backed by our unwavering commitment to
               trustworthiness and authenticity.
             </Typography>
-            <CustomButton
-              backgroundColor="#0F1B4C"
-              color="#fff"
-              buttonText="Start Biding"
-              heroBtn={true}
-            />
+            
           </Box>
 
-          <Box sx={{ flex: "1.25" }}>
+          <Box sx={{ flex: "1" }}>
             <img
               src={heroImg}
               alt="heroImg"
-              style={{ height: "600px", marginBottom: "2rem" }}
+              style={{ height: "300px", }}
             />
           </Box>
         </CustomBox>

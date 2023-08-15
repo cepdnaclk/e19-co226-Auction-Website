@@ -9,6 +9,9 @@ class CustomerService{
     getItemData(id){
         return axios.get(API_BASE_URL+"item?id="+id)
     }
+    getCategory(name){
+        return axios.get(API_BASE_URL+"category?name="+name)
+    }
 }
 
 export default new CustomerService();

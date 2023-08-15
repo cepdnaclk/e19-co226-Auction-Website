@@ -4,10 +4,12 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import {Box} from '@mui/material';
 
 import UserNavBar from './UserNavBar'
-import Listings from './Listings';
+import ListingsCategory from './ListingsCategory';
 import Hero from '../Hero';
 
-const Home = () => {
+const Category = () => {
+    const queryParams = new URLSearchParams(location.search);
+  const name = queryParams.get('name');
     const props = useMediaQuery("(min-width:600px)");
     return (
       
@@ -25,7 +27,7 @@ const Home = () => {
               <CategoryNavBar/>
               <br/><br/>
               
-              <Listings/>
+              <ListingsCategory name={name}/>
               
               </Box>
           
@@ -34,4 +36,4 @@ const Home = () => {
       );
     };
 
-export default Home
+export default Category

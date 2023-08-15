@@ -9,7 +9,13 @@ import { Details, Height } from '@mui/icons-material';
 import UserNavBar from './UserNavBar'
 import {Typography, Box, Button, Divider} from '@mui/material';
 import UserService from '../../services/UserService';
-
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import MuiAlert from '@mui/material/Alert';
+import Snackbar from '@mui/material/Snackbar';
 
 
 const OneListing = () => {
@@ -20,12 +26,15 @@ const OneListing = () => {
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id');
   const [idx, setIdx] = useState(0);
+  const [bidConfirmOpen, setBidConfirmOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
+  const [watchListConfirmOpen, setWatchListConfirmOpem] = useState(false)
   const [bid, setBid]=useState({
     userName: user.userName ,
     price: '',
     id: id
   })
+  
 
   //convert encoded byte array to blob url
   function byteArrayToImage(byte) {
@@ -46,10 +55,23 @@ const OneListing = () => {
     setIdx(id);
   }
 
+  const handleConfirmBidOpen = () => {
+    setBidConfirmOpen(true)
+  }
+  const handleConfirmBidClose = () => {
+    setBidConfirmOpen(false)
+  }
+
   const handleBid = ()=>{
     UserService.saveBid(bid);
     window.location.reload();
 
+  }
+  const handleWatchListConfirmOpen = ()=>{
+    setWatchListConfirmOpem(true)
+  }
+  const handleWatchListConfirmClose = ()=>{
+    setWatchListConfirmOpem(false)
   }
   
 
@@ -125,12 +147,12 @@ const OneListing = () => {
                 <Divider/>
                 <Box display="grid" direction="column" gap={1} marginTop={4}>
                 
-                <Button  color='secondary' variant='contained' onClick={handleBid} >  
+                <Button  color='secondary' variant='contained' onClick={handleConfirmBidOpen} >  
             Place a bid
           </Button>
           
         
-            <Button  color='secondary' variant='contained' >  
+            <Button  color='secondary' variant='contained' onClick={handleWatchListConfirmOpen}>  
                 Add to watchList
             </Button>
          
@@ -140,6 +162,39 @@ const OneListing = () => {
         </Grid>
         <Typography variant='subtitle1' sx={{color:'#212121'}}>Description</Typography>
         <Typography variant='subtitle1' sx={{color:'#212121'}}>{detail.description}</Typography>
+
+
+        <Dialog
+        open={bidConfirmOpen}
+        onClose={handleConfirmBidClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Confirm placing the bid"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            By placing the bid you are agreeing to terms and conditions. are you sure to proceed
+            further
+            
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirmBidClose}>Back</Button>
+          <Button onClick={handleBid} autoFocus>
+            Place the bid
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar
+        open={watchListConfirmOpen}
+        autoHideDuration={6000}
+        onClose={handleWatchListConfirmClose}
+        message="Succesfully added to watchList"
+        
+      />
     
  
     </div>

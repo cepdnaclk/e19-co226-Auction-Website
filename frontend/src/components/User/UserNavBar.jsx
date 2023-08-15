@@ -44,7 +44,7 @@ export default function NavBar() {
         alignItems: 'center',
         justifyContent: 'space-between',
         gap: '30px',
-        backgroundColor: 'white',
+        backgroundColor: '#E6F0FF',
         width: '97vw',
         position: 'fixed',
         top: '0',
