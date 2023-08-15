@@ -55,4 +55,21 @@ public class ListingServiceImpl implements ListingService{
          return listingAllModels;
 
     }
+
+    @Override
+    public List<ListingAllModel> getByCategory(String id) throws SQLException {
+        List<Object[]> mapList= itemRepository.getAllListingsHeaderByCategory(id);
+        List<ListingAllModel> listingAllModels = new ArrayList<>();
+        for (Object[] map: mapList){
+            ListingAllModel listingAllModel = new ListingAllModel();
+            long key = Long.valueOf(map[0].toString());
+            listingAllModel.setId(key);
+            listingAllModel.setTitle(map[1].toString());
+            Image im = imageRepository.getHeaderImage(key);
+            listingAllModel.setData(im.getData().getBytes(1,(int) im.getData().length()));
+            listingAllModels.add(listingAllModel);
+
+        }
+        return listingAllModels;
+    }
 }

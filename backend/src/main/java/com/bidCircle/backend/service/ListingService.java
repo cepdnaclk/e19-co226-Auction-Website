@@ -12,4 +12,6 @@ public interface ListingService {
     Optional<Item> getItemById(long id);
 
     List<ListingAllModel> getAll() throws SQLException;
+
+    List<ListingAllModel> getByCategory(String id) throws SQLException;
 }

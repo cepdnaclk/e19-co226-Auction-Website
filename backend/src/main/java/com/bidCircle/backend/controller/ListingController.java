@@ -55,4 +55,10 @@ public class ListingController {
 
     }
 
+    @GetMapping("/category")
+    public List<ListingAllModel> displayCategory(@RequestParam("name") String id) throws Exception {
+        return listingService.getByCategory(id);
+
+    }
+
 }

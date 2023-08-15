@@ -18,5 +18,9 @@ public interface ItemRepository extends JpaRepository<Item,Long> {
     )
     List<Object[]> getAllListingsHeader();
 
-
+    @Query(
+            value = "select id,title from item where c_name=?1",
+            nativeQuery = true
+    )
+    List<Object[]> getAllListingsHeaderByCategory(String id);
 }
