@@ -9,6 +9,7 @@ import RequireAuth from './components/RequireAuth';
 import Layout from './components/Layout';
 import Listings from './components/User/Listings';
 import CreateListing from './components/seller/CreateListing';
+import OneListing from './components/User/OneListing';
 
 
 const lightTheme = createTheme({
@@ -35,6 +36,7 @@ function App() {
       <Route path ="/signup" element ={<Signup props = "signup"/>}/>
       <Route path ="/login" element ={<Signup props = "login"/>}/>
       <Route path = "/listings" element = {<Listings/>}/>
+      <Route path='/listing' element={<OneListing/>}/>
       
 
 //potected route
