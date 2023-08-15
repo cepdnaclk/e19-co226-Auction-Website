@@ -8,6 +8,7 @@ import { Grid } from '@mui/material';
 import { Details, Height } from '@mui/icons-material';
 import UserNavBar from './UserNavBar'
 import {Typography, Box, Button, Divider} from '@mui/material';
+import UserService from '../../services/UserService';
 
 
 
@@ -19,6 +20,12 @@ const OneListing = () => {
   const queryParams = new URLSearchParams(location.search);
   const id = queryParams.get('id');
   const [idx, setIdx] = useState(0);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [bid, setBid]=useState({
+    userName: user.userName ,
+    price: '',
+    id: id
+  })
 
   //convert encoded byte array to blob url
   function byteArrayToImage(byte) {
@@ -38,6 +45,12 @@ const OneListing = () => {
   const handleChangeImg = (id)=>{
     setIdx(id);
   }
+
+  const handleBid = ()=>{
+    UserService.saveBid(bid);
+    window.location.reload();
+
+  }
   
 
   useEffect(() => {
@@ -46,6 +59,8 @@ const OneListing = () => {
       try {
         const response = await ListingService.getItemData(id);
         setdetail(response.data);
+        const priceUpdated = parseInt(response.data.startPrice)+parseInt(response.data.incrementPrice)
+        setBid({...bid, price:priceUpdated.toString() })
     
     
     const d = response.data.data.map(e => (
@@ -110,7 +125,7 @@ const OneListing = () => {
                 <Divider/>
                 <Box display="grid" direction="column" gap={1} marginTop={4}>
                 
-                <Button  color='secondary' variant='contained' >  
+                <Button  color='secondary' variant='contained' onClick={handleBid} >  
             Place a bid
           </Button>
           

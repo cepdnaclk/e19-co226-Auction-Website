@@ -10,6 +10,7 @@ import Layout from './components/Layout';
 import Listings from './components/User/Listings';
 import CreateListing from './components/seller/CreateListing';
 import OneListing from './components/User/OneListing';
+import Home from './components/User/Home';
 
 
 const lightTheme = createTheme({
@@ -29,14 +30,17 @@ function App() {
       <CssBaseline/>
     <Routes>
      
-    <Route path="/" element={<Layout />}>
-    <Route path ="/" element ={<Signup props = "signup"/>}/>
+   <Route path="/" element={<Layout />}> 
+    <Route path ="/" element ={<Home/>}/>
 
-      <Route path ="/" element ={<Signup props = "signup"/>}/>
+    
       <Route path ="/signup" element ={<Signup props = "signup"/>}/>
       <Route path ="/login" element ={<Signup props = "login"/>}/>
       <Route path = "/listings" element = {<Listings/>}/>
+
+      <Route element={<RequireAuth allowedRoles="ROLE_USER" />}>
       <Route path='/listing' element={<OneListing/>}/>
+      </Route>
       
 
 //potected route
