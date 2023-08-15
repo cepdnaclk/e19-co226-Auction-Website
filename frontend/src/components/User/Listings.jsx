@@ -8,8 +8,9 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 
 
+
 const Listings = () => {
-const [itemData, setitemData] = useState([]);
+const [itemData, setItemData] = useState([]);
 const [url, seturl] = useState();
 //const itemData = []
 
@@ -19,23 +20,18 @@ useEffect(() => {
       
       try {
         const response = await ListingService.getall();
+    
+    const newItems = response.data.map(e => ({
+      id: e.id,
+      title: e.title,
+      img: byteArrayToImage(e.data)
+    }));
+
+    setItemData(newItems);
+            
        
-        
-        console.log(response.data);
-        //setitemData(response.data)
-        response.data.forEach(e => {
-            //console.log(e.data)
-             const list = {id:e.id, title:e.title, img: byteArrayToImage(e.data)};
-            // setitemData(itemData => [...itemData, list]);
-            setitemData([...itemData, list])
             
-            
-            console.log(byteArrayToImage(e.data));
-            seturl(byteArrayToImage(e.data));
-            console.log("h");
-            
-        });
-        console.log(itemData);
+       
       } catch (error) {
         console.log(error);
         console.log("fetch err");
@@ -63,14 +59,17 @@ useEffect(() => {
 
   return (
     <div style={{ height: '100vh', overflow: 'auto' }}>
-    <ImageList sx={{ width: '100%'}}>
-      <ImageListItem key="Subheader" cols={4}>
-        <ListSubheader component="div">December</ListSubheader>
-      </ImageListItem>
+    <ImageList sx={{ width: '100%'}} rowHeight={250} gap={10}cols={3}>
+    
+      {/* <ImageListItem key="Subheader" cols={2}>
+        <ListSubheader component="div"></ListSubheader>
+      </ImageListItem> */}
       {itemData.map((item) => (
-        <ImageListItem key={item.img} sx={{width: 400}}>
+    
+        <ImageListItem key={item.img}>
           <img
-            src={item.img}
+            src={item.img} 
+            style={{height:'200px'}}
            
             alt={item.title}
             loading="lazy"
@@ -88,8 +87,11 @@ useEffect(() => {
             }
           />
         </ImageListItem>
+       
+    
       ))}
-    </ImageList>
+      </ImageList>
+    
     </div>
   )
 }
