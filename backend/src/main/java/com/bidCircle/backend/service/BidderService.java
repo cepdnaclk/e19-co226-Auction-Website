@@ -1,2 +1,7 @@
-package com.bidCircle.backend.service;public interface BidderService {
+package com.bidCircle.backend.service;
+
+import com.bidCircle.backend.model.BidModel;
+
+public interface BidderService {
+    void addBid(BidModel bidModel);
 }

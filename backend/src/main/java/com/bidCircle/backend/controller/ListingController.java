@@ -21,7 +21,7 @@ public class ListingController {
     private ListingService listingService;
 
     @GetMapping("/item")
-    public ResponseEntity<ItemResponseModel> displayImage(@RequestParam("id") long id) throws Exception {
+    public ItemResponseModel displayImage(@RequestParam("id") long id) throws Exception {
         Optional<Item> item = listingService.getItemById(id);
         Item itemEntity = item.orElseThrow(() -> new Exception("Item not found for id: " + id));
 
@@ -46,7 +46,7 @@ public class ListingController {
         itemResponseModel.setName(itemEntity.getAuctioneer().getCompanyName());
 
 
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(itemResponseModel);
+        return itemResponseModel;
     }
 
     @GetMapping("/all")

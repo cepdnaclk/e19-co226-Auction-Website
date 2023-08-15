@@ -1,15 +1,9 @@
 package com.bidCircle.backend.service;
 
-import com.bidCircle.backend.entity.Auctioneer;
-import com.bidCircle.backend.entity.PasswordResetToken;
-import com.bidCircle.backend.entity.UserInfo;
-import com.bidCircle.backend.entity.VerificationToken;
+import com.bidCircle.backend.entity.*;
 
 import com.bidCircle.backend.model.UserModel;
-import com.bidCircle.backend.repository.AuctioneerRepository;
-import com.bidCircle.backend.repository.PasswordResetTokenRepository;
-import com.bidCircle.backend.repository.UserInfoRepository;
-import com.bidCircle.backend.repository.VerificationTokenRepository;
+import com.bidCircle.backend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private AuctioneerRepository auctioneerRepository;
+
+    @Autowired
+    private BidderRepository bidderRepository;
 
     @Override
     public UserInfo registerUser(UserModel userModel) {
@@ -151,6 +148,12 @@ public class UserServiceImpl implements UserService {
         Auctioneer auctioneer = new Auctioneer();
         auctioneer.setUserName(userModel.getUserName());
         auctioneerRepository.save(auctioneer);
+    }
+    @Override
+    public void registerBidder(UserModel userModel) {
+        Bider bider = new Bider();
+        bider.setUserName(userModel.getUserName());
+        bidderRepository.save(bider);
     }
 
     @Override

@@ -32,4 +32,6 @@ public interface UserService {
     void registerAuctioneer(UserModel userModel);
 
     Optional<UserInfo> findUserByUserName(String userName);
+
+    void registerBidder(UserModel userModel);
 }
