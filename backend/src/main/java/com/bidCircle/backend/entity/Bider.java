@@ -31,4 +31,8 @@ public class Bider {
             referencedColumnName = "id"
     )
     private List<Item> watchlist = new ArrayList<>();
+
+    public void addToWatchList(Item item){
+        this.watchlist.add(item);
+    }
 }

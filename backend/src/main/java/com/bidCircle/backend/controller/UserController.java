@@ -24,6 +24,13 @@ public class UserController {
 
 
     }
+    @PostMapping("/watclist")
+    public String placeWatchList(@RequestBody BidModel bidModel) {
+        bidderService.addWatchList(bidModel);
+        return "Success";
+
+
+    }
 
 
 }
