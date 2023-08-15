@@ -5,8 +5,9 @@ import ListingService from '../../services/ListingService';
 import ImageGrid from './ImageGrid';
 import MainImage from './MainImage';
 import { Grid } from '@mui/material';
-import { Details } from '@mui/icons-material';
-
+import { Details, Height } from '@mui/icons-material';
+import UserNavBar from './UserNavBar'
+import {Typography, Box, Button, Divider} from '@mui/material';
 
 
 
@@ -43,9 +44,9 @@ const OneListing = () => {
         setdetail(response.data);
     
     
-    const d = response.data.data.map(e => ({
-        img: byteArrayToImage(e)
-      }));
+    const d = response.data.data.map(e => (
+         byteArrayToImage(e)
+      ));
       setImageList(d);
        
             
@@ -64,11 +65,35 @@ const OneListing = () => {
   }, [id]);
   console.log(detail);
   console.log(imageList)
+  imageList.map(e=>{
+    console.log("hi")
+  })
 
   return (
-    <div>jj
+    <div style={{padding:'15px', margin:'5px'}}>
+        <UserNavBar/>
+        <Grid container   gap={2} sx={{marginTop:'65px'}}>
+            <Grid item sm={1}>
+            <Grid container direction="column" justifyContent="flex-start"
+  alignItems="center"  sx={{height:'500px'}} gap={1}>
+                {imageList.map((image)=>(
+                    <img src={image} style={{height:'70px'}}/>
+                ))}
+                
+                </Grid>
+            </Grid>
+            <Grid item sm={5}>
+            <img src={imageList[0]} style={{height:'500px'}}/>
+            </Grid>
+            <Grid item sm={5}>
+                <Typography variant='h4' sx={{color:'#006064'}}>{detail.title}</Typography>
+                <Divider/>
+            </Grid>
+        </Grid>
+        <Typography variant='subtitle1' sx={{color:'#212121'}}>Description</Typography>
+        <Typography variant='subtitle1' sx={{color:'#212121'}}>{detail.description}</Typography>
     
-
+ 
     </div>
   )
 }
