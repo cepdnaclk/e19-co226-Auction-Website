@@ -2,6 +2,9 @@ ___
 # BidCircle
 ___
 
+![goldlogo](https://github.com/cepdnaclk/e19-co226-Auction-Website/assets/115687865/f023c78e-84ea-449b-bfc5-3690a12c3817)
+
+
 ## React Page Setup Instructions
 Follow these steps to set up a React page:
 ___
@@ -28,8 +31,16 @@ Start the development server:
   <pre><code>npm run dev</code></pre>
 Open your web browser and visit http://localhost:5173/ to see the React page.
 
+  
+
 
 Deployment
 To deploy the React page, build the optimized production-ready bundle by running the following command:
   <pre><code>npm run build</code>
 The bundled files will be generated in the build directory, which can be deployed to a web server.
+
+   ## Our Team
+
+* E/19/227 - Jeewajith Madhushanka <a href="e19227@eng.pdn.ac.lk">email</a>
+* E/19/236 - Lahiru Manikdiwela <a href="e19236@eng.pdn.ac.lk">email</a>
+* E/19/240 - Shenal Mendis <a href = "e19236@eng.pdn.ac.lk">email</a>
