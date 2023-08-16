@@ -3,15 +3,17 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and title
-repository-name: eYY-XXX-project-template
-title:
+repository-name: e19-co226-Auction-Website
+title: Bidcircle
 ---
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# Project Title
+# BIDCIRCLE
 
 ---
+![goldlogo](https://github.com/cepdnaclk/e19-co226-Auction-Website/assets/115687865/ac3df7db-c580-409a-bf06-9bbcc0a499c0)
+
 
 <!-- 
 This is a sample image, to show how to add images to your page. To learn more options, please refer [this](https://projects.ce.pdn.ac.lk/docs/faq/how-to-add-an-image/)
@@ -20,10 +22,11 @@ This is a sample image, to show how to add images to your page. To learn more op
  -->
 
 ## Team
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
--  eNumber, Name, [email](mailto:name@email.com)
+-  E/19/227, Jeewajith Madhushanka, [email](mailto:e19236@eng.pdn.ac.lk)
+-  E/19/236, Lahiru Manikdiwela, [email](mailto:e19236@eng.pdn.ac.lk)
+-  E/19/240, Shenal Mendis, [email](mailto:e19240@eng.pdn.ac.lk)
 
+<!--
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Other Sub Topics](#other-sub-topics)
