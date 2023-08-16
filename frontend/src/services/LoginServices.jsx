@@ -17,7 +17,7 @@ const login = (user) => {
     });
 };
 
-const logout = (id) => {
+const logout = () => {
   localStorage.removeItem("user");
 };
 

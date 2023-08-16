@@ -45,7 +45,11 @@ const LogInForm = () => {
             setErrorMessage(capitalRole+" dont have acces to "+login+" content");
           
         }if(accessToken != ""){
-            navigate(from, { replace: true });
+            if (roles=="ROLE_SELLER"){
+              navigate("/seller/dashboard")
+            }else{
+            navigate("/");
+            }
         }
     }).catch((error)=>{
         setErrorMessage("Invalid username or email address")

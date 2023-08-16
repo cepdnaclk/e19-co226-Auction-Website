@@ -16,9 +16,7 @@ const DashBoard = () => {
             <NavBar />
             <Box m="20px" p="65px" className="mt-16 p-4">
               {/* HEADER */}
-              <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Header title="DASHBOARD" subtitle="BIDCIRCLE Seller dashboard" />
-              </Box>
+              
                <AddItem />
               
             </Box>

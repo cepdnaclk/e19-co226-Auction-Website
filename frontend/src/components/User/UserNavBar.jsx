@@ -10,16 +10,20 @@ import {
   MenuItem,
   Divider,
   Popper,
+  Button
 } from '@mui/material';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Logout from '@mui/icons-material/Logout';
 import { ClassNames } from '@emotion/react';
+import LoginService from '../../services/LoginServices';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorE2, setAnchorE2] = React.useState(null);
   const openMenu = Boolean(anchorEl);
   const openNotify = Boolean(anchorE2);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +40,16 @@ export default function NavBar() {
   const handleCloseNotify = () => {
     setAnchorE2(null);
   };
+
+  const handleLogIn = () =>{
+    navigate("/login")
+
+  }
+
+  const handleLogOut = ()=>{
+    LoginService.logout();
+    navigate("/");
+  }
 
   return (
     <Box
@@ -62,6 +76,7 @@ export default function NavBar() {
         BIDCIRCLE
       </Typography>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'right', gap: '30px' }}>
+        <Button  style={{color:'white'}} sx={{backgroundColor:'#3f51b5'}} onClick={()=>handleLogIn()}>LOGIN</Button>
         <IconButton onClick={handleNotifyClick} size="small" sx={{ ml: 2 }}>
           <Badge badgeContent={50} sx={{ color: '#42a5f5' }}>
             <NotificationsActiveIcon />
@@ -116,8 +131,8 @@ export default function NavBar() {
         </MenuItem>
         <Divider />
 
-        <MenuItem onClick={handleClose}>
-          <Logout fontSize="small" />
+        <MenuItem onClick={handleLogOut}>
+          <Logout  fontSize="small" />
           Logout
         </MenuItem>
       </Menu>

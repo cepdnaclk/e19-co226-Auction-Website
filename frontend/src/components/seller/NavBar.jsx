@@ -14,12 +14,15 @@ import {
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Logout from '@mui/icons-material/Logout';
 import { ClassNames } from '@emotion/react';
+import LoginService from '../../services/LoginServices';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorE2, setAnchorE2] = React.useState(null);
   const openMenu = Boolean(anchorEl);
   const openNotify = Boolean(anchorE2);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -36,6 +39,12 @@ export default function NavBar() {
   const handleCloseNotify = () => {
     setAnchorE2(null);
   };
+
+  const handleLogOut = ()=>{
+    LoginService.logout();
+    navigate("/")
+
+  }
 
   return (
     <Box
@@ -116,7 +125,7 @@ export default function NavBar() {
         </MenuItem>
         <Divider />
 
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleLogOut}>
           <Logout fontSize="small" />
           Logout
         </MenuItem>

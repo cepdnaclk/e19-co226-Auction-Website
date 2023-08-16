@@ -12,6 +12,11 @@ export default function NavBar() {
         window.location.reload();
         
       }
+
+    const handleAll = ()=>{
+      navigate("/");
+      window.location.reload();
+    }
  
   return (
     <Box
@@ -28,6 +33,15 @@ export default function NavBar() {
         padding:'8'
       }}
     >
+      <Button onClick={()=>handleAll()}><Typography
+        variant="inherit"
+        color="#424242"
+        fontSize="22"
+       
+      >
+        All
+              </Typography>
+      </Button>
       
       <Button onClick={()=>handle("Fine Arts")}><Typography
         variant="inherit"
